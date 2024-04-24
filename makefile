@@ -24,3 +24,7 @@ logs:
 
 live:
 	python -m uvicorn --port 8080 src.main:app --reload
+
+test:
+	ls tests/.test*db | xargs -r rm
+	python -m pytest tests -vv
