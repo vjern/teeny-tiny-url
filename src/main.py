@@ -5,6 +5,7 @@ from fastapi.responses import PlainTextResponse, HTMLResponse
 
 from schema import Entry
 from store import MemStore
+from db import DBStore
 
 app = FastAPI()
 
@@ -14,7 +15,8 @@ def hasher(entry: Entry) -> str:
     i += 1
     return str(i)
 
-store = MemStore(key=hasher)
+store = DBStore(key=hasher)
+# store = MemStore(key=hasher)
 
 
 @app.get("/")

@@ -1,4 +1,4 @@
-from typing import Callable, Iterable
+from typing import Callable, Iterable, Optional
 from dataclasses import dataclass, field
 
 from schema import Entry
@@ -8,7 +8,7 @@ from schema import Entry
 class Store:
     key: Callable[[Entry], str]
 
-    def get(self, key: str) -> Entry:
+    def get(self, key: str) -> Optional[Entry]:
         raise NotImplementedError
 
     def insert(self, entry: Entry) -> str:
