@@ -41,5 +41,9 @@ def forward(key: str):
             content='Not found', 
         )
     return HTMLResponse(
-        content=entry.url
+        content=f"""
+    <head>
+        <meta http-equiv="Refresh" content="0 URL={entry.url}" />
+    </head>
+    """
     )
