@@ -35,7 +35,7 @@ class DBStore(Store):
             FROM {TABLE}
             WHERE key = ?
             """,
-            (key)
+            (key,)
         )
         ans = result.fetchone()
         if ans is None:

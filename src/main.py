@@ -1,4 +1,5 @@
-import re
+from datetime import datetime
+from hashlib import sha256
 
 from fastapi import FastAPI
 from fastapi.responses import PlainTextResponse, HTMLResponse
@@ -9,11 +10,12 @@ from db import DBStore
 
 app = FastAPI()
 
-i = 0
 def hasher(entry: Entry) -> str:
-    global i
-    i += 1
-    return str(i)
+    salt = str(datetime.now().timestamp())
+    cache = sha256()
+    cache.update(entry.url.encode())
+    cache.update(salt.encode())
+    return cache.hexdigest()[-8:]
 
 store = DBStore(key=hasher)
 # store = MemStore(key=hasher)
