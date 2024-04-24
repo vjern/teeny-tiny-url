@@ -3,8 +3,8 @@ import sqlite3
 from dataclasses import dataclass
 from typing import Iterable, Optional
 
-from schema import Entry
-from store import Store
+from .schema import Entry
+from .store import Store
 
 TABLE = "slug"
 CREATE_DB = f"""

@@ -4,8 +4,8 @@ from hashlib import sha256
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse, PlainTextResponse
 
-from db import DBStore
-from schema import Entry
+from .db import DBStore
+from .schema import Entry
 
 app = FastAPI()
 

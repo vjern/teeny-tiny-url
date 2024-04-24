@@ -23,5 +23,4 @@ logs:
 	docker logs $$LATEST_CONTAINER
 
 live:
-	cd src
-	python -m uvicorn --port 8080 main:app --reload
+	python -m uvicorn --port 8080 src.main:app --reload

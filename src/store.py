@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Callable, Iterable, Optional
 
-from schema import Entry
+from .schema import Entry
 
 
 @dataclass
