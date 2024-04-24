@@ -6,7 +6,6 @@ from typing import Iterable, Optional
 from schema import Entry
 from store import Store
 
-DB_FILE = "slug.db"
 TABLE = "slug"
 CREATE_DB = f"""
 CREATE TABLE {TABLE}(
@@ -19,14 +18,15 @@ CREATE TABLE {TABLE}(
 
 @dataclass
 class DBStore(Store):
+    db_file: str
 
     def __post_init__(self):
         # check db exists or initialize it
-        if not os.path.exists(DB_FILE):
+        if not os.path.exists(self.db_file):
             self.connect().cursor().execute(CREATE_DB)
 
     def connect(self) -> sqlite3.Connection:
-        return sqlite3.connect(DB_FILE)
+        return sqlite3.connect(self.db_file)
 
     def get(self, key: str) -> Optional[Entry]:
         result = (

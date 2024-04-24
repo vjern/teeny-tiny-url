@@ -6,7 +6,6 @@ from fastapi.responses import HTMLResponse, PlainTextResponse
 
 from db import DBStore
 from schema import Entry
-from store import MemStore
 
 app = FastAPI()
 
@@ -19,8 +18,7 @@ def hasher(entry: Entry) -> str:
     return cache.hexdigest()[-8:]
 
 
-store = DBStore(key=hasher)
-# store = MemStore(key=hasher)
+store = DBStore(key=hasher, db_file="slug.db")
 
 
 @app.get("/")
