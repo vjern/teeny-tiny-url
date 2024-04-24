@@ -82,3 +82,10 @@ To list all registered slugs, do:
 GET /list
 ```
 
+## Rationale
+
+### Edge cases
+
+- Key collisions
+- Invalid URLs (blank, no protocol etc)
+- Race condition with same url at same timestamp
