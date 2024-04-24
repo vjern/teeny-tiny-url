@@ -16,3 +16,7 @@ Content-Type: application/json
 ###
 
 GET {{HOST}}/1
+
+####
+
+GET {{HOST}}/list

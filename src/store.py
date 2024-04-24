@@ -1,4 +1,4 @@
-from typing import Callable
+from typing import Callable, Iterable
 from dataclasses import dataclass, field
 
 from schema import Entry
@@ -14,6 +14,8 @@ class Store:
     def insert(self, entry: Entry) -> str:
         raise NotImplementedError
 
+    def list(self) -> Iterable[tuple[str, Entry]]:
+        raise NotImplementedError
 
 @dataclass
 class MemStore(Store):
@@ -26,3 +28,6 @@ class MemStore(Store):
         key = self.key(entry)
         self.mem[key] = entry
         return key
+
+    def list(self):
+        return self.mem.items()

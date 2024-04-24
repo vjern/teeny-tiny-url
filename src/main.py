@@ -27,6 +27,11 @@ def register(body: Entry):
     return store.insert(body)
 
 
+@app.get("/list")
+def list():
+    return store.list()
+
+
 @app.get("/{key}")
 def forward(key: str):
     entry = store.get(key)
