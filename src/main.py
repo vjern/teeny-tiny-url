@@ -2,13 +2,14 @@ from datetime import datetime
 from hashlib import sha256
 
 from fastapi import FastAPI
-from fastapi.responses import PlainTextResponse, HTMLResponse
+from fastapi.responses import HTMLResponse, PlainTextResponse
 
+from db import DBStore
 from schema import Entry
 from store import MemStore
-from db import DBStore
 
 app = FastAPI()
+
 
 def hasher(entry: Entry) -> str:
     salt = str(datetime.now().timestamp())
@@ -16,6 +17,7 @@ def hasher(entry: Entry) -> str:
     cache.update(entry.url.encode())
     cache.update(salt.encode())
     return cache.hexdigest()[-8:]
+
 
 store = DBStore(key=hasher)
 # store = MemStore(key=hasher)
@@ -42,7 +44,7 @@ def forward(key: str):
     if entry is None:
         return PlainTextResponse(
             status_code=404,
-            content='Not found', 
+            content="Not found",
         )
     return HTMLResponse(
         content=f"""

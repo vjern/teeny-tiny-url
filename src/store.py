@@ -1,5 +1,5 @@
-from typing import Callable, Iterable, Optional
 from dataclasses import dataclass, field
+from typing import Callable, Iterable, Optional
 
 from schema import Entry
 
@@ -16,6 +16,7 @@ class Store:
 
     def list(self) -> Iterable[tuple[str, Entry]]:
         raise NotImplementedError
+
 
 @dataclass
 class MemStore(Store):

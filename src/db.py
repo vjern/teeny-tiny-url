@@ -1,11 +1,10 @@
 import os
 import sqlite3
 from dataclasses import dataclass
-from typing import Optional, Iterable
+from typing import Iterable, Optional
 
-from store import Store
 from schema import Entry
-
+from store import Store
 
 DB_FILE = "slug.db"
 TABLE = "slug"
@@ -16,6 +15,7 @@ CREATE TABLE {TABLE}(
     url TEXT
 )
 """
+
 
 @dataclass
 class DBStore(Store):
@@ -29,13 +29,17 @@ class DBStore(Store):
         return sqlite3.connect(DB_FILE)
 
     def get(self, key: str) -> Optional[Entry]:
-        result = self.connect().cursor().execute(
-            f"""
+        result = (
+            self.connect()
+            .cursor()
+            .execute(
+                f"""
             SELECT *
             FROM {TABLE}
             WHERE key = ?
             """,
-            (key,)
+                (key,),
+            )
         )
         ans = result.fetchone()
         if ans is None:
@@ -57,13 +61,16 @@ class DBStore(Store):
         )
         con.commit()
         return key
-    
+
     def list(self) -> Iterable[tuple[str, Entry]]:
         return (
             (key, Entry(url=url))
-            for id, key, url in 
-            self.connect().cursor().execute(
-            f"""
+            for id, key, url in self.connect()
+            .cursor()
+            .execute(
+                f"""
             SELECT * FROM {TABLE}
             """
-        ).fetchall())
+            )
+            .fetchall()
+        )
